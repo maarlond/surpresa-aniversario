@@ -1,13 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, Music, ChevronUp, ChevronDown } from 'lucide-react';
-import { Heart } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Music,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
+import { Heart } from "lucide-react";
 import musicFile from "../music/music.mp3";
 
 const SONG = {
-    title: 'Yellow',
-    artist: 'Coldplay',
-    src: musicFile,
+  title: "Yellow",
+  artist: "Coldplay",
+  src: musicFile,
 };
 
 export default function MusicPlayer() {
@@ -15,7 +23,7 @@ export default function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [muted, setMuted] = useState(false);
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [userInteracted, setUserInteracted] = useState(false);
@@ -24,33 +32,40 @@ export default function MusicPlayer() {
   useEffect(() => {
     const tryAutoplay = () => {
       if (!userInteracted && audioRef.current) {
-        audioRef.current.play()
+        audioRef.current
+          .play()
           .then(() => {
             setPlaying(true);
             setUserInteracted(true);
           })
           .catch(() => {});
-        document.removeEventListener('click', tryAutoplay);
-        document.removeEventListener('touchstart', tryAutoplay);
-        document.removeEventListener('keydown', tryAutoplay);
+        document.removeEventListener("click", tryAutoplay);
+        document.removeEventListener("touchstart", tryAutoplay);
+        document.removeEventListener("keydown", tryAutoplay);
       }
     };
 
     // Also try immediate autoplay
     if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => { setPlaying(true); setUserInteracted(true); })
-        .catch(() => { /* autoplay blocked by browser, wait for interaction */ });
+      audioRef.current
+        .play()
+        .then(() => {
+          setPlaying(true);
+          setUserInteracted(true);
+        })
+        .catch(() => {
+          /* autoplay blocked by browser, wait for interaction */
+        });
     }
 
-    document.addEventListener('click', tryAutoplay);
-    document.addEventListener('touchstart', tryAutoplay);
-    document.addEventListener('keydown', tryAutoplay);
+    document.addEventListener("click", tryAutoplay);
+    document.addEventListener("touchstart", tryAutoplay);
+    document.addEventListener("keydown", tryAutoplay);
 
     return () => {
-      document.removeEventListener('click', tryAutoplay);
-      document.removeEventListener('touchstart', tryAutoplay);
-      document.removeEventListener('keydown', tryAutoplay);
+      document.removeEventListener("click", tryAutoplay);
+      document.removeEventListener("touchstart", tryAutoplay);
+      document.removeEventListener("keydown", tryAutoplay);
     };
   }, [userInteracted]);
 
@@ -66,7 +81,8 @@ export default function MusicPlayer() {
       audioRef.current.pause();
       setPlaying(false);
     } else {
-      audioRef.current.play()
+      audioRef.current
+        .play()
         .then(() => setPlaying(true))
         .catch(() => setPlaying(false));
     }
@@ -94,10 +110,10 @@ export default function MusicPlayer() {
   };
 
   const formatTime = (s) => {
-    if (!s || isNaN(s)) return '0:00';
+    if (!s || isNaN(s)) return "0:00";
     const m = Math.floor(s / 60);
     const sec = Math.floor(s % 60);
-    return `${m}:${String(sec).padStart(2, '0')}`;
+    return `${m}:${String(sec).padStart(2, "0")}`;
   };
 
   const currentTime = audioRef.current ? audioRef.current.currentTime : 0;
@@ -115,17 +131,21 @@ export default function MusicPlayer() {
       <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6, type: 'spring', damping: 20 }}
+        transition={{ delay: 1.5, duration: 0.6, type: "spring", damping: 20 }}
         className="fixed bottom-4 left-1/2 z-50"
-        style={{ transform: 'translateX(-50%)' }}
+        style={{
+          left: expanded ? "20px" : "50%",
+          transform: expanded ? "none" : "translateX(-50%)",
+        }}
       >
         <div
           className="rounded-2xl shadow-2xl border border-rose-100 overflow-hidden"
           style={{
-            background: 'rgba(255, 255, 255, 0.92)',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 40px rgba(220, 80, 120, 0.25), 0 2px 12px rgba(0,0,0,0.08)',
-            minWidth: expanded ? 320 : 'auto',
+            background: "rgba(255, 255, 255, 0.92)",
+            backdropFilter: "blur(20px)",
+            boxShadow:
+              "0 8px 40px rgba(220, 80, 120, 0.25), 0 2px 12px rgba(0,0,0,0.08)",
+            minWidth: expanded ? 320 : "auto",
           }}
         >
           {/* Gradient top bar */}
@@ -139,10 +159,11 @@ export default function MusicPlayer() {
                   onClick={togglePlay}
                   className="w-9 h-9 rounded-full flex items-center justify-center bg-rose-500 hover:bg-rose-600 transition-colors shadow-md shadow-rose-200 flex-shrink-0"
                 >
-                  {playing
-                    ? <Pause className="w-4 h-4 text-white" />
-                    : <Play className="w-4 h-4 text-white ml-0.5" />
-                  }
+                  {playing ? (
+                    <Pause className="w-4 h-4 text-white" />
+                  ) : (
+                    <Play className="w-4 h-4 text-white ml-0.5" />
+                  )}
                 </button>
                 <Music className="w-4 h-4 text-rose-400 animate-pulse" />
                 <button
@@ -162,7 +183,10 @@ export default function MusicPlayer() {
                     <div className="relative">
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center"
-                        style={{ background: 'linear-gradient(135deg, #f48fb1, #ce93d8)' }}
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #f48fb1, #ce93d8)",
+                        }}
                       >
                         <Music className="w-5 h-5 text-white" />
                       </div>
@@ -175,12 +199,19 @@ export default function MusicPlayer() {
                       )}
                     </div>
                     <div>
-                      <p className="font-playfair text-sm font-semibold text-rose-900 leading-tight">{SONG.title}</p>
-                      <p className="font-inter text-xs text-rose-500">{SONG.artist}</p>
+                      <p className="font-playfair text-sm font-semibold text-rose-900 leading-tight">
+                        {SONG.title}
+                      </p>
+                      <p className="font-inter text-xs text-rose-500">
+                        {SONG.artist}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Heart className="w-3 h-3 text-rose-300" fill="currentColor" />
+                    <Heart
+                      className="w-3 h-3 text-rose-300"
+                      fill="currentColor"
+                    />
                     <button
                       onClick={() => setExpanded(false)}
                       className="text-rose-300 hover:text-rose-500 transition-colors ml-1"
@@ -199,13 +230,16 @@ export default function MusicPlayer() {
                     className="h-full rounded-full transition-all duration-100 relative"
                     style={{
                       width: `${progress}%`,
-                      background: 'linear-gradient(90deg, #f48fb1, #e91e63)',
+                      background: "linear-gradient(90deg, #f48fb1, #e91e63)",
                     }}
                   >
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-rose-500 rounded-full shadow opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </div>
-                <div className="flex justify-between text-rose-400 font-inter mb-3" style={{ fontSize: 10 }}>
+                <div
+                  className="flex justify-between text-rose-400 font-inter mb-3"
+                  style={{ fontSize: 10 }}
+                >
                   <span>{formatTime(currentTime)}</span>
                   <span>{formatTime(duration)}</span>
                 </div>
@@ -217,21 +251,23 @@ export default function MusicPlayer() {
                     onClick={togglePlay}
                     className="w-10 h-10 rounded-full flex items-center justify-center bg-rose-500 hover:bg-rose-600 active:scale-95 transition-all shadow-md shadow-rose-200 flex-shrink-0"
                   >
-                    {playing
-                      ? <Pause className="w-4 h-4 text-white" />
-                      : <Play className="w-4 h-4 text-white ml-0.5" />
-                    }
+                    {playing ? (
+                      <Pause className="w-4 h-4 text-white" />
+                    ) : (
+                      <Play className="w-4 h-4 text-white ml-0.5" />
+                    )}
                   </button>
 
                   {/* Volume */}
                   <button
-                    onClick={() => setMuted(m => !m)}
+                    onClick={() => setMuted((m) => !m)}
                     className="text-rose-400 hover:text-rose-600 transition-colors flex-shrink-0"
                   >
-                    {muted || volume === 0
-                      ? <VolumeX className="w-4 h-4" />
-                      : <Volume2 className="w-4 h-4" />
-                    }
+                    {muted || volume === 0 ? (
+                      <VolumeX className="w-4 h-4" />
+                    ) : (
+                      <Volume2 className="w-4 h-4" />
+                    )}
                   </button>
 
                   <div className="flex-1 relative group">
@@ -248,7 +284,7 @@ export default function MusicPlayer() {
                       className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                       style={{
                         background: `linear-gradient(to right, #f48fb1 ${(muted ? 0 : volume) * 100}%, #fce4ec ${(muted ? 0 : volume) * 100}%)`,
-                        outline: 'none',
+                        outline: "none",
                       }}
                     />
                   </div>
@@ -256,7 +292,10 @@ export default function MusicPlayer() {
 
                 {/* Auto-play hint */}
                 {!playing && !userInteracted && (
-                  <p className="text-center font-inter text-rose-400 mt-2" style={{ fontSize: 10 }}>
+                  <p
+                    className="text-center font-inter text-rose-400 mt-2"
+                    style={{ fontSize: 10 }}
+                  >
                     Clique em qualquer lugar para tocar ♫
                   </p>
                 )}
