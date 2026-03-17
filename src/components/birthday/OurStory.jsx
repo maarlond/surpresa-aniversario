@@ -7,7 +7,6 @@ import maravilhosaaa4 from "../../img/maravilhosaaa4.png";
 import fotoPraia1 from "../../img/fotoPraia1.jpeg";
 import fotoRodizio1 from "../../img/fotoRodizio1.jpeg";
 
-
 const moments = [
   {
     icon: Sparkles,
