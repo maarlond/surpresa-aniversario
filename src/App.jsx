@@ -73,19 +73,8 @@ const AuthenticatedApp = () => {
 };
 
 function App() {
-  const [open, setOpen] = useState(false);
-
-  const handleOpenSurprise = () => {
-    setOpen(true);
-  };
-
-  return (
-    <>
-      {!open && <Home onOpenSurprise={handleOpenSurprise} />}
-
-      {open && <Home />}
-    </>
-  );
+  return <Home />;
 }
+
 
 export default App;

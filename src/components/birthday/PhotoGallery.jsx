@@ -11,6 +11,7 @@ import juntosBarra from "../../img/juntosBarra.jpeg";
 import fotoRodizio3 from "../../img/fotoRodizio3.jpeg";
 import fotoRodizio4 from "../../img/fotoRodizio4.jpeg";
 
+import maravilhosaaa from "../../img/maravilhosaaa.jpeg";
 import maravilhosaaa3 from "../../img/maravilhosaaa3.jpeg";
 import maravilhosaaa2 from "../../img/maravilhosaaa2.jpeg";
 
@@ -23,6 +24,8 @@ import fotoGpt3 from "../../img/fotoGpt3.jpeg";
 
 import fotoJulie1 from "../../img/fotoJulie1.jpeg";
 import fotoJufotoPraiaJulielie1 from "../../img/fotoPraiaJulie.jpeg";
+
+import fotoBus from "../../img/fotoBus.jpeg";
 
 //import fotoSertao from "../../img/fotoSertao.jpeg";
 //import fotoSertao from "../../img/fotoSertao.jpeg";
@@ -45,36 +48,57 @@ const photos = [
     caption: "Para sempre nós dois",
   },
   {
-    src: fotoJufotoPraiaJulielie1,
-    caption: "Nosso mundo",
-  },
-  {
-    src: maravilhosaaa3,
-    caption: "Te amo infinitamente",
-  },
-
-  {
     src: maravilhosaaa2,
     caption: "Te amo infinitamente",
   },
   {
+    src: fotoJufotoPraiaJulielie1,
+    caption: "Nosso mundo",
+  },
+
+  {
     src: fotoComAlice,
-    caption: "Te amo infinitamente",
+    caption: "Nosso mundo",
   },
 
   {
     src: fotoComAlice2,
-    caption: "Te amo infinitamente",
+    //caption: "Te amo infinitamente",
   },
 
   {
     src: fotoJulie1,
-    caption: "Te amo infinitamente",
+    //caption: "Te amo infinitamente",
   },
-  
+
   {
     src: fotoRodizio4,
-    caption: "Te amo infinitamente",
+    //caption: "Te amo infinitamente",
+  },
+
+  {
+    src: fotoGpt3,
+    //caption: "Te amo infinitamente",
+  },
+
+  {
+    src: fotoGpt2,
+    //caption: "Te amo infinitamente",
+  },
+
+  {
+    src: fotoBus,
+    //caption: "Te amo infinitamente",
+  },
+
+  {
+    src: maravilhosaaa,
+    caption: "Maravilhosaa",
+  },
+
+  {
+    src: fotoGpt1,
+    //caption: "Te amo infinitamente",
   },
 ];
 
